@@ -16,6 +16,23 @@ pub fn App() -> impl IntoView {
         // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/visualtimer.css"/>
 
+        <Link rel="manifest" href="/manifest.json" />
+        <Script >
+            "
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                  // Registrierung erfolgreich
+                  console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                  // Registrierung fehlgeschlagen
+                  console.log('ServiceWorker registration failed: ', err);
+                });
+              });
+            }
+            "
+        </Script>
+
         // sets the document title
         <Title text="Visual Timer"/>
 
